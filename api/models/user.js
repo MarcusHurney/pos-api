@@ -28,6 +28,18 @@ const UserSchema = new mongoose.Schema({
     required: true,
     minLength: 6
   },
+  profile: {
+    name: { type: String, default: '' },
+    picture: { type: String, default: '' }
+  },
+
+  company: { type: String, default: '' },
+
+  admin: { type: Boolean, default: true },
+
+  employees: [{ type: Schema.Types.ObjectId, ref: 'Employee' }],
+
+  address: String,
   tokens: [
     {
       access: {
