@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 // import helper libraries
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 
-const EmployeeSchema = new mongoose.Schema({
+const EmployeeSchema = new Schema({
   administrator: { type: Schema.Types.ObjectId, ref: 'User' },
   name: String,
   email: String,
