@@ -1,20 +1,22 @@
 // require mongoose models
-const User = require('../models/user');
-const Employee = require('../models/employee');
-const Product = require('../models/product');
-const Sale = require('../models/sale');
+
+const User = require('../../models/user');
+const Employee = require('../../models/employee');
+const Product = require('../../models/product');
+const Sale = require('../../models/sale');
 
 // require javascript helper libraries
-const _ = require('underscore');
 const faker = require('faker');
 const moment = require('moment');
 const async = require('async');
 const parallel = require('async/parallel');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-const __ = require('lodash');
 
-module.exports = function(app) {
+// import custom middleware
+const { authenticate } = require('../../middleware/authentication');
+
+module.exports = app => {
   // if the employees email and password match email and encrypted password in DB
   // returns employee
   app.post('/loginEmployee', function(req, res, next) {

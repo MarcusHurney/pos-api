@@ -1,18 +1,16 @@
 // require javascript helper libraries
-const _ = require('underscore');
 const faker = require('faker');
-const __ = require('lodash');
-const passport = require('passport');
-
-// import route protection middleware
-const requireAuth = passport.authenticate('jwt', { session: false });
+const _ = require('lodash');
 
 // require mongoose models
-const Product = require('../models/product');
+const Product = require('../../models/product');
 
-module.exports = function(app) {
+// import custom middleware
+const { authenticate } = require('../../middleware/authentication');
+
+module.exports = app => {
   // deletes 1 product associated with a single user by ID
-  app.delete(`/deleteProduct/:productId`, requireAuth, function(
+  app.delete(`/deleteProduct/:productId`, authenticate, function(
     req,
     res,
     next
@@ -34,7 +32,7 @@ module.exports = function(app) {
 
   // Returns all products associated with a single user based
   // on their category, also checks for query parameter for pulling products by name
-  app.get('/products/:category', requireAuth, function(req, res, next) {
+  app.get('/products/:category', authenticate, function(req, res, next) {
     var queryParams = req.query;
     var filteredProducts;
 
@@ -66,7 +64,7 @@ module.exports = function(app) {
   });
 
   // returns all products associated with a single user
-  app.get('/fetchAllProducts', requireAuth, function(req, res, next) {
+  app.get('/fetchAllProducts', authenticate, function(req, res, next) {
     var queryParams = req.query;
     var filteredProducts;
 
@@ -97,7 +95,7 @@ module.exports = function(app) {
 
   // Returns a single product associated with a single user
   // from the database based on product's id
-  app.get('/fetchSingleProduct/:id', requireAuth, function(req, res, next) {
+  app.get('/fetchSingleProduct/:id', authenticate, function(req, res, next) {
     Product.find({
       owner: req.user._id,
       _id: req.params.id
@@ -112,7 +110,7 @@ module.exports = function(app) {
   });
 
   //This route updates an existing product's data
-  app.put('/editProduct', requireAuth, function(req, res, next) {
+  app.put('/editProduct', authenticate, function(req, res, next) {
     Product.findOne({
       _id: req.body.productId,
       owner: req.user._id
@@ -141,7 +139,7 @@ module.exports = function(app) {
   });
 
   //creates a new product associated with a single user
-  app.post('/createProduct', requireAuth, function(req, res, next) {
+  app.post('/createProduct', authenticate, function(req, res, next) {
     var product = new Product();
 
     //This is the exact order in which the product model is defined in
