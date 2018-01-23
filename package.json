@@ -1,0 +1,33 @@
+{
+  "name": "pos-api",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Node backend boilerplate with jwt authentication",
+  "author": "MarcusHurney",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "deploy": "git push heroku master",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "async": "^2.6.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "faker": "^4.1.0",
+    "jsonwebtoken": "^8.1.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.20.1",
+    "mongoose": "^4.13.5",
+    "morgan": "^1.9.0",
+    "nodemailer": "^4.4.0",
+    "nodemon": "^1.12.1",
+    "validator": "^9.1.2"
+  },
+  "engines": {
+    "node": "9.2.0"
+  }
+}
